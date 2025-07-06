@@ -35,10 +35,14 @@ export class UpdateUserDto {
 
   @IsOptional()
   @IsNumber()
-  userClass:Number;
+  userClass?: Number;
 
   @IsOptional()
   @IsString()
   @MinLength(6)
   userPassword?: string;
+
+  @IsOptional()
+  @IsMongoId()
+  orgID?: Types.ObjectId;
 }

@@ -1,0 +1,387 @@
+{
+  "info": {
+    "_postman_id": "dshala-collection-001",
+    "name": "DigitalShala API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "API collection for DigitalShala backend including Auth, Organization, User, Material, and Notice endpoints."
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "jwtToken", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@digitalshala.com\",\n  \"password\": \"yourpassword\",\n  \"role\": \"admin\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": [ "{{baseUrl}}" ], "path": [ "auth", "login" ] }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { "raw": "{{baseUrl}}/auth/logout", "host": [ "{{baseUrl}}" ], "path": [ "auth", "logout" ] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Organization",
+      "item": [
+        {
+          "name": "Create Organization (with Owner)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orgName\": \"Digital Shala Academy\",\n  \"orgEmail\": \"admin@digitalshala.com\",\n  \"orgPassword\": \"securePassword123\",\n  \"isActive\": true,\n  \"ownerName\": \"John Doe\",\n  \"ownerEmail\": \"john.doe@digitalshala.com\",\n  \"ownerPassword\": \"userPassword123\",\n  \"ownerClass\": 10,\n  \"ownerRole\": \"admin\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/orgs", "host": [ "{{baseUrl}}" ], "path": [ "orgs" ] }
+          }
+        },
+        {
+          "name": "Get All Organizations",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { "raw": "{{baseUrl}}/orgs", "host": [ "{{baseUrl}}" ], "path": [ "orgs" ] }
+          }
+        },
+        {
+          "name": "Get All Organizations (SUPER_ADMIN) - Sorted by Date",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { 
+              "raw": "{{baseUrl}}/orgs/super-admin/all?sort=desc", 
+              "host": [ "{{baseUrl}}" ], 
+              "path": [ "orgs", "super-admin", "all" ],
+              "query": [
+                { "key": "sort", "value": "desc", "description": "Sort by creation date: asc or desc" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Organization by ID",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { "raw": "{{baseUrl}}/orgs/:id", "host": [ "{{baseUrl}}" ], "path": [ "orgs", ":id" ] }
+          }
+        },
+        {
+          "name": "Update Organization",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"orgName\": \"Updated Name\"\n}" },
+            "url": { "raw": "{{baseUrl}}/orgs/:id", "host": [ "{{baseUrl}}" ], "path": [ "orgs", ":id" ] }
+          }
+        },
+        {
+          "name": "Activate Organization",
+          "request": {
+            "method": "PATCH",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { "raw": "{{baseUrl}}/orgs/:id/activate", "host": [ "{{baseUrl}}" ], "path": [ "orgs", ":id", "activate" ] }
+          }
+        },
+        {
+          "name": "Deactivate Organization",
+          "request": {
+            "method": "PATCH",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { "raw": "{{baseUrl}}/orgs/:id/deactivate", "host": [ "{{baseUrl}}" ], "path": [ "orgs", ":id", "deactivate" ] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userName\": \"Jane Doe\",\n  \"userEmail\": \"jane.doe@digitalshala.com\",\n  \"userPassword\": \"userPassword123\",\n  \"userClass\": 10,\n  \"orgID\": \"<orgID>\",\n  \"role\": \"student\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/users", "host": [ "{{baseUrl}}" ], "path": [ "users" ] }
+          }
+        },
+        {
+          "name": "Get All Users (SUPER_ADMIN) - Sorted by Org",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { 
+              "raw": "{{baseUrl}}/users/super-admin/all?sortByOrg=asc", 
+              "host": [ "{{baseUrl}}" ], 
+              "path": [ "users", "super-admin", "all" ],
+              "query": [
+                { "key": "sortByOrg", "value": "asc", "description": "Sort by organizationId: asc or desc" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"userName\": \"Jane Updated\"\n}" },
+            "url": { "raw": "{{baseUrl}}/users/:id", "host": [ "{{baseUrl}}" ], "path": [ "users", ":id" ] }
+          }
+        },
+        {
+          "name": "Activate User",
+          "request": {
+            "method": "PATCH",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { "raw": "{{baseUrl}}/users/:id/activate", "host": [ "{{baseUrl}}" ], "path": [ "users", ":id", "activate" ] }
+          }
+        },
+        {
+          "name": "Deactivate User",
+          "request": {
+            "method": "PATCH",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { "raw": "{{baseUrl}}/users/:id/deactivate", "host": [ "{{baseUrl}}" ], "path": [ "users", ":id", "deactivate" ] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Material",
+      "item": [
+        {
+          "name": "Create Material (metadata only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orgID\": \"<orgID>\",\n  \"userID\": \"<userID>\",\n  \"forClass\": 10,\n  \"materialTitle\": \"Maths Chapter 1\",\n  \"materialSubject\": \"math\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/materials", "host": [ "{{baseUrl}}" ], "path": [ "materials" ] }
+          }
+        },
+        {
+          "name": "Upload Material (with file)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "file", "type": "file", "src": "" },
+                { "key": "orgID", "type": "text", "value": "<orgID>" },
+                { "key": "userID", "type": "text", "value": "<userID>" },
+                { "key": "forClass", "type": "text", "value": "10" },
+                { "key": "materialTitle", "type": "text", "value": "Maths Chapter 1" },
+                { "key": "materialSubject", "type": "text", "value": "math" }
+              ]
+            },
+            "url": { "raw": "{{baseUrl}}/materials/upload", "host": [ "{{baseUrl}}" ], "path": [ "materials", "upload" ] }
+          }
+        },
+        {
+          "name": "Get All Materials (SUPER_ADMIN) - Sorted by Org",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { 
+              "raw": "{{baseUrl}}/materials/super-admin/all?sortByOrg=asc", 
+              "host": [ "{{baseUrl}}" ], 
+              "path": [ "materials", "super-admin", "all" ],
+              "query": [
+                { "key": "sortByOrg", "value": "asc", "description": "Sort by organizationId: asc or desc" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Materials",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { "raw": "{{baseUrl}}/materials", "host": [ "{{baseUrl}}" ], "path": [ "materials" ] }
+          }
+        },
+        {
+          "name": "Get Material by ID",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { "raw": "{{baseUrl}}/materials/:id", "host": [ "{{baseUrl}}" ], "path": [ "materials", ":id" ] }
+          }
+        },
+        {
+          "name": "Update Material",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"materialTitle\": \"Updated Title\"\n}" },
+            "url": { "raw": "{{baseUrl}}/materials/:id", "host": [ "{{baseUrl}}" ], "path": [ "materials", ":id" ] }
+          }
+        },
+        {
+          "name": "Delete Material",
+          "request": {
+            "method": "DELETE",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { "raw": "{{baseUrl}}/materials/:id", "host": [ "{{baseUrl}}" ], "path": [ "materials", ":id" ] }
+          }
+        },
+        {
+          "name": "Get Materials by User",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { "raw": "{{baseUrl}}/materials/user/:userID", "host": [ "{{baseUrl}}" ], "path": [ "materials", "user", ":userID" ] }
+          }
+        },
+        {
+          "name": "Get Materials by Org",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { "raw": "{{baseUrl}}/materials/org/:orgID", "host": [ "{{baseUrl}}" ], "path": [ "materials", "org", ":orgID" ] }
+          }
+        },
+        {
+          "name": "Get Materials by Class",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { "raw": "{{baseUrl}}/materials/class/:forClass", "host": [ "{{baseUrl}}" ], "path": [ "materials", "class", ":forClass" ] }
+          }
+        },
+        {
+          "name": "Get Materials by Subject",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { "raw": "{{baseUrl}}/materials/subject/:materialSubject", "host": [ "{{baseUrl}}" ], "path": [ "materials", "subject", ":materialSubject" ] }
+          }
+        },
+        {
+          "name": "Get Materials by Org and Class",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { "raw": "{{baseUrl}}/materials/org/:orgID/class/:forClass", "host": [ "{{baseUrl}}" ], "path": [ "materials", "org", ":orgID", "class", ":forClass" ] }
+          }
+        },
+        {
+          "name": "Get Materials by Org and Subject",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { "raw": "{{baseUrl}}/materials/org/:orgID/subject/:materialSubject", "host": [ "{{baseUrl}}" ], "path": [ "materials", "org", ":orgID", "subject", ":materialSubject" ] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notice",
+      "item": [
+        {
+          "name": "Create Notice",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orgID\": \"<orgID>\",\n  \"userID\": \"<userID>\",\n  \"date\": \"2024-01-15T10:00:00.000Z\",\n  \"forClass\": 10,\n  \"noticeTitle\": \"Annual Sports Day\",\n  \"noticeBody\": \"Annual sports day will be held on 15th January 2024. All students are requested to participate.\",\n  \"noticeType\": \"sport\",\n  \"noticeImage\": \"https://example.com/sports-image.jpg\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/notices", "host": [ "{{baseUrl}}" ], "path": [ "notices" ] }
+          }
+        },
+        {
+          "name": "Get All Notices",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { "raw": "{{baseUrl}}/notices", "host": [ "{{baseUrl}}" ], "path": [ "notices" ] }
+          }
+        },
+        {
+          "name": "Filter Notices",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { 
+              "raw": "{{baseUrl}}/notices/filter?forClass=10&noticeType=sport", 
+              "host": [ "{{baseUrl}}" ], 
+              "path": [ "notices", "filter" ],
+              "query": [
+                { "key": "id", "value": "", "description": "Notice ID (optional)" },
+                { "key": "forClass", "value": "10", "description": "Class number (optional)" },
+                { "key": "noticeType", "value": "sport", "description": "Notice type: exam, sport, holiday, extra (optional)" },
+                { "key": "userID", "value": "", "description": "User ID (optional)" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Notice",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"noticeTitle\": \"Updated Sports Day Notice\",\n  \"noticeBody\": \"Updated notice body content.\"\n}" },
+            "url": { "raw": "{{baseUrl}}/notices/:id", "host": [ "{{baseUrl}}" ], "path": [ "notices", ":id" ] }
+          }
+        },
+        {
+          "name": "Delete Notice",
+          "request": {
+            "method": "DELETE",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { "raw": "{{baseUrl}}/notices/:id", "host": [ "{{baseUrl}}" ], "path": [ "notices", ":id" ] }
+          }
+        }
+      ]
+    }
+  ]
+} 

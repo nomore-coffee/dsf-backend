@@ -1,0 +1,60 @@
+[{
+  "_id": {
+    "$oid": "686a2e142e5cf31304f7c86a"
+  },
+  "userName": "John Doe",
+  "userEmail": "john.doe@digitalshala.com",
+  "userPassword": "$2b$10$LltdTBWIge2Y517wJTkhZeq13YNkc6kQ/4vGps37Sxy2jM.q0LEPG",
+  "orgID": {
+    "$oid": "686a2e142e5cf31304f7c86c"
+  },
+  "userClass": 10,
+  "isActive": true,
+  "role": "admin",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686a2fc324b4c7ff955d89a5"
+  },
+  "userName": "student name",
+  "userEmail": "student@digitalshala.com",
+  "userPassword": "$2b$10$6IYEf9XAX16R6cj4Lei6JeE68ZqJzKF12sLDLQBJisCXRnwaCLE2y",
+  "orgID": {
+    "$oid": "686a2e142e5cf31304f7c86c"
+  },
+  "userClass": 10,
+  "isActive": true,
+  "role": "student",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686a2fdb24b4c7ff955d89a8"
+  },
+  "userName": "teacher name",
+  "userEmail": "teacher@digitalshala.com",
+  "userPassword": "$2b$10$jWGuYFvqBGdOr0d7lPVABOtlB6bx6eYfTw5/t9zyq0NCO.WMgCJDm",
+  "orgID": {
+    "$oid": "686a2e142e5cf31304f7c86c"
+  },
+  "userClass": 10,
+  "isActive": true,
+  "role": "teacher",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686a2fec24b4c7ff955d89ab"
+  },
+  "userName": "parent name",
+  "userEmail": "parent@digitalshala.com",
+  "userPassword": "$2b$10$9Hj7pbebX0f0VgiRZvioB.nNu7XPKgaYxieBIh8N1tt9MV/03oEPy",
+  "orgID": {
+    "$oid": "686a2e142e5cf31304f7c86c"
+  },
+  "userClass": 10,
+  "isActive": true,
+  "role": "parent",
+  "__v": 0
+}]

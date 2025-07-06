@@ -22,10 +22,10 @@ export class AuthService {
       const isMatch = await bcrypt.compare(pass, user.userPassword);
       if (!isMatch) throw new UnauthorizedException('Invalid credentials');
     }else{
-      user = await this.orgModel.findOne({ orgEmail: email });
+      user = await this.userModel.findOne({ userEmail: email });
       if (!user) throw new UnauthorizedException('Invalid credentials');
       console.log("..",user,pass)
-      const isMatch = await bcrypt.compare(pass, user.orgPassword);
+      const isMatch = await bcrypt.compare(pass, user.userPassword);
       if (!isMatch) throw new UnauthorizedException('Invalid credentials');
     }
     return user;

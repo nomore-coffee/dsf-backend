@@ -1,6 +1,7 @@
-import { IsBoolean, IsEmail, IsNotEmpty } from 'class-validator';
+import { IsBoolean, IsEmail, IsNotEmpty, IsString, IsNumber, MinLength, IsEnum, IsOptional } from 'class-validator';
+import { UserRole } from 'src/users/schemas/user.schema';
 
-export class CreateOrgDto {
+export class CreateOrgDto  {
   @IsNotEmpty()
   orgName: string;
 
@@ -10,10 +11,26 @@ export class CreateOrgDto {
   @IsNotEmpty()
   orgPassword: string;
 
-  @IsNotEmpty()
-  orgOwner: string; // should be a valid ObjectId
-
+  @IsOptional()
   @IsBoolean()
-  isActive:boolean
+  isActive?: boolean;
+
+  // User details for organization owner
+  @IsString()
+  @IsNotEmpty()
+  ownerName: string;
+
+  @IsEmail()
+  ownerEmail: string;
+
+  @IsString()
+  @MinLength(6)
+  ownerPassword: string;
+  
+  @IsNumber()
+  ownerClass: number;
+
+  @IsEnum(UserRole)
+  ownerRole: UserRole;
 }
 

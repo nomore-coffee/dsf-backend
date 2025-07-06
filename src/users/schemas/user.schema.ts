@@ -3,6 +3,7 @@ import mongoose, { Document, Types } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 
 export enum UserRole {
+  SUPER_ADMIN = 'super_admin',
   ADMIN = 'admin',
   STUDENT = 'student',
   TEACHER = 'teacher',

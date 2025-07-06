@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Param, Patch, Post, UseGuards, Get, Query } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
@@ -33,5 +33,17 @@ export class UserController {
   @Roles(UserRole.ADMIN)
   deactivateUser(@Param('id') id: string) {
     return this.userService.deactivateUser(id);
+  }
+
+  @Get('super-admin/all')
+  @Roles(UserRole.SUPER_ADMIN)
+  getAllUsersSuperAdmin(@Query('sortByOrg') sortByOrg: string) {
+    // sortByOrg can be 'asc' or 'desc'
+    return this.userService.getAllUsersSortedByOrg(sortByOrg);
+  }
+
+  @Get('test/all')
+  async getAllUsersTest() {
+    return this.userService.getAllUsersSortedByOrg('asc');
   }
 }

@@ -1,4 +1,4 @@
-import { IsEnum, IsMongoId, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsEnum, IsMongoId, IsNotEmpty, IsNumber, IsString, IsOptional } from 'class-validator';
 import { Subject } from '../schemas/material.schema';
 
 export class CreateMaterialDto {
@@ -12,25 +12,41 @@ export class CreateMaterialDto {
   forClass: number;
 
   @IsString()
+  @IsNotEmpty()
   materialTitle: string;
-
-  @IsString()
-  materialUrl: string;
 
   @IsEnum(Subject)
   materialSubject: Subject;
 }
 
 export class UpdateMaterialDto {
+  @IsOptional()
   @IsNumber()
   forClass?: number;
 
+  @IsOptional()
   @IsString()
   materialTitle?: string;
 
-  @IsString()
-  materialUrl?: string;
-
+  @IsOptional()
   @IsEnum(Subject)
   materialSubject?: Subject;
+}
+
+export class UploadMaterialDto {
+  @IsMongoId()
+  orgID: string;
+
+  @IsMongoId()
+  userID: string;
+
+  @IsNumber()
+  forClass: number;
+
+  @IsString()
+  @IsNotEmpty()
+  materialTitle: string;
+
+  @IsEnum(Subject)
+  materialSubject: Subject;
 }

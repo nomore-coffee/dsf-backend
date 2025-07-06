@@ -95,4 +95,9 @@ async deactivateUser(userId: string): Promise<User> {
     throw new InternalServerErrorException('Failed to deactivate user');
   }
 }
+
+async getAllUsersSortedByOrg(sortByOrg: string = 'asc'): Promise<User[]> {
+  const sortOrder = sortByOrg === 'desc' ? -1 : 1;
+  return this.userModel.find().sort({ orgID: sortOrder }).exec();
+}
 }
