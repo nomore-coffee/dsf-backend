@@ -1,0 +1,191 @@
+{
+  "organization": {
+    "name": "School1",
+    "id": "687357a914b0285b1ca0a477",
+    "email": "admin@school1.com",
+    "password": "school1pass123"
+  },
+  "users": [
+    {
+      "name": "Super Admin",
+      "email": "superadmin@school1.com",
+      "password": "superadmin123",
+      "role": "super_admin",
+      "class": 12,
+      "userId": "687357a914b0285b1ca0a475",
+      "organizationId": "687357a914b0285b1ca0a477",
+      "permissions": ["Full system access", "View all organizations", "View all users"]
+    },
+    {
+      "name": "Sarah Admin",
+      "email": "sarah.admin@school1.com",
+      "password": "sarah123",
+      "role": "admin",
+      "class": 12,
+      "userId": "687357f914b0285b1ca0a48e",
+      "organizationId": "687357a914b0285b1ca0a477",
+      "permissions": ["Organization management", "User creation", "Material management", "Notice management"]
+    },
+    {
+      "name": "John Teacher",
+      "email": "teacher@school1.com",
+      "password": "teacher123",
+      "role": "teacher",
+      "class": 10,
+      "userId": "687357df14b0285b1ca0a485",
+      "organizationId": "687357a914b0285b1ca0a477",
+      "permissions": ["Material creation", "Notice creation", "Educational content management"]
+    },
+    {
+      "name": "Emma Teacher",
+      "email": "emma.teacher@school1.com",
+      "password": "emma123",
+      "role": "teacher",
+      "class": 11,
+      "userId": "6873580214b0285b1ca0a491",
+      "organizationId": "687357a914b0285b1ca0a477",
+      "permissions": ["Material creation", "Notice creation", "Educational content management"]
+    },
+    {
+      "name": "Alice Student",
+      "email": "student@school1.com",
+      "password": "student123",
+      "role": "student",
+      "class": 10,
+      "userId": "687357e614b0285b1ca0a488",
+      "organizationId": "687357a914b0285b1ca0a477",
+      "permissions": ["Access to materials", "Access to notices"]
+    },
+    {
+      "name": "David Student",
+      "email": "david.student@school1.com",
+      "password": "david123",
+      "role": "student",
+      "class": 11,
+      "userId": "6873580d14b0285b1ca0a494",
+      "organizationId": "687357a914b0285b1ca0a477",
+      "permissions": ["Access to materials", "Access to notices"]
+    },
+    {
+      "name": "Bob Parent",
+      "email": "parent@school1.com",
+      "password": "parent123",
+      "role": "parent",
+      "class": 10,
+      "userId": "687357f014b0285b1ca0a48b",
+      "organizationId": "687357a914b0285b1ca0a477",
+      "permissions": ["Access to notices", "Access to attendance records"]
+    },
+    {
+      "name": "Lisa Parent",
+      "email": "lisa.parent@school1.com",
+      "password": "lisa123",
+      "role": "parent",
+      "class": 11,
+      "userId": "6873581914b0285b1ca0a497",
+      "organizationId": "687357a914b0285b1ca0a477",
+      "permissions": ["Access to notices", "Access to attendance records"]
+    }
+  ],
+  "usersByRole": {
+    "super_admin": [
+      {
+        "name": "Super Admin",
+        "email": "superadmin@school1.com",
+        "password": "superadmin123"
+      }
+    ],
+    "admin": [
+      {
+        "name": "Sarah Admin",
+        "email": "sarah.admin@school1.com",
+        "password": "sarah123"
+      }
+    ],
+    "teacher": [
+      {
+        "name": "John Teacher",
+        "email": "teacher@school1.com",
+        "password": "teacher123"
+      },
+      {
+        "name": "Emma Teacher",
+        "email": "emma.teacher@school1.com",
+        "password": "emma123"
+      }
+    ],
+    "student": [
+      {
+        "name": "Alice Student",
+        "email": "student@school1.com",
+        "password": "student123"
+      },
+      {
+        "name": "David Student",
+        "email": "david.student@school1.com",
+        "password": "david123"
+      }
+    ],
+    "parent": [
+      {
+        "name": "Bob Parent",
+        "email": "parent@school1.com",
+        "password": "parent123"
+      },
+      {
+        "name": "Lisa Parent",
+        "email": "lisa.parent@school1.com",
+        "password": "lisa123"
+      }
+    ]
+  },
+  "loginExamples": {
+    "super_admin": {
+      "url": "POST /auth/login",
+      "body": {
+        "userEmail": "superadmin@school1.com",
+        "userPassword": "superadmin123",
+        "role": "super_admin"
+      }
+    },
+    "admin": {
+      "url": "POST /auth/login",
+      "body": {
+        "userEmail": "sarah.admin@school1.com",
+        "userPassword": "sarah123",
+        "role": "admin"
+      }
+    },
+    "teacher": {
+      "url": "POST /auth/login",
+      "body": {
+        "userEmail": "teacher@school1.com",
+        "userPassword": "teacher123",
+        "role": "teacher"
+      }
+    },
+    "student": {
+      "url": "POST /auth/login",
+      "body": {
+        "userEmail": "student@school1.com",
+        "userPassword": "student123",
+        "role": "student"
+      }
+    },
+    "parent": {
+      "url": "POST /auth/login",
+      "body": {
+        "userEmail": "parent@school1.com",
+        "userPassword": "parent123",
+        "role": "parent"
+      }
+    }
+  },
+  "curlCommands": [
+    "curl -X POST http://localhost:3000/auth/login -H \"Content-Type: application/json\" -d '{\"userEmail\": \"superadmin@school1.com\", \"userPassword\": \"superadmin123\", \"role\": \"super_admin\"}'",
+    "curl -X POST http://localhost:3000/auth/login -H \"Content-Type: application/json\" -d '{\"userEmail\": \"sarah.admin@school1.com\", \"userPassword\": \"sarah123\", \"role\": \"admin\"}'",
+    "curl -X POST http://localhost:3000/auth/login -H \"Content-Type: application/json\" -d '{\"userEmail\": \"teacher@school1.com\", \"userPassword\": \"teacher123\", \"role\": \"teacher\"}'",
+    "curl -X POST http://localhost:3000/auth/login -H \"Content-Type: application/json\" -d '{\"userEmail\": \"student@school1.com\", \"userPassword\": \"student123\", \"role\": \"student\"}'",
+    "curl -X POST http://localhost:3000/auth/login -H \"Content-Type: application/json\" -d '{\"userEmail\": \"parent@school1.com\", \"userPassword\": \"parent123\", \"role\": \"parent\"}'"
+  ]
+} 

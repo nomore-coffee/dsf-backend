@@ -3,7 +3,7 @@
     "_postman_id": "dshala-collection-001",
     "name": "DigitalShala API Collection",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": "API collection for DigitalShala backend including Auth, Organization, User, Material, and Notice endpoints."
+    "description": "API collection for DigitalShala backend including Auth, Organization, User, Material, Notice, and Attendance endpoints."
   },
   "variable": [
     { "key": "baseUrl", "value": "http://localhost:3000" },
@@ -20,7 +20,7 @@
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"admin@digitalshala.com\",\n  \"password\": \"yourpassword\",\n  \"role\": \"admin\"\n}"
+              "raw": "{\n  \"userEmail\": \"admin@digitalshala.com\",\n  \"userPassword\": \"yourpassword\",\n  \"role\": \"admin\"\n}"
             },
             "url": { "raw": "{{baseUrl}}/auth/login", "host": [ "{{baseUrl}}" ], "path": [ "auth", "login" ] }
           }
@@ -39,7 +39,21 @@
       "name": "Organization",
       "item": [
         {
-          "name": "Create Organization (with Owner)",
+          "name": "Create Organization Setup (with Owner)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orgName\": \"Digital Shala Academy\",\n  \"orgEmail\": \"admin@digitalshala.com\",\n  \"orgPassword\": \"securePassword123\",\n  \"isActive\": true,\n  \"ownerName\": \"John Doe\",\n  \"ownerEmail\": \"john.doe@digitalshala.com\",\n  \"ownerPassword\": \"userPassword123\",\n  \"ownerClass\": 10,\n  \"ownerRole\": \"admin\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/orgs/setup", "host": [ "{{baseUrl}}" ], "path": [ "orgs", "setup" ] }
+          }
+        },
+        {
+          "name": "Create Organization (Authenticated)",
           "request": {
             "method": "POST",
             "header": [
@@ -54,7 +68,7 @@
           }
         },
         {
-          "name": "Get All Organizations",
+          "name": "Get All Organizations (ADMIN)",
           "request": {
             "method": "GET",
             "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
@@ -148,6 +162,14 @@
           }
         },
         {
+          "name": "Get All Users Test",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { "raw": "{{baseUrl}}/users/test/all", "host": [ "{{baseUrl}}" ], "path": [ "users", "test", "all" ] }
+          }
+        },
+        {
           "name": "Update User",
           "request": {
             "method": "PATCH",
@@ -217,6 +239,35 @@
           }
         },
         {
+          "name": "Test Upload (Debug)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "file", "type": "file", "src": "" },
+                { "key": "orgID", "type": "text", "value": "<orgID>" },
+                { "key": "userID", "type": "text", "value": "<userID>" },
+                { "key": "forClass", "type": "text", "value": "10" },
+                { "key": "materialTitle", "type": "text", "value": "Test Material" },
+                { "key": "materialSubject", "type": "text", "value": "math" }
+              ]
+            },
+            "url": { "raw": "{{baseUrl}}/materials/test-upload", "host": [ "{{baseUrl}}" ], "path": [ "materials", "test-upload" ] }
+          }
+        },
+        {
+          "name": "Get All Materials",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
+            "url": { "raw": "{{baseUrl}}/materials", "host": [ "{{baseUrl}}" ], "path": [ "materials" ] }
+          }
+        },
+        {
           "name": "Get All Materials (SUPER_ADMIN) - Sorted by Org",
           "request": {
             "method": "GET",
@@ -229,14 +280,6 @@
                 { "key": "sortByOrg", "value": "asc", "description": "Sort by organizationId: asc or desc" }
               ]
             }
-          }
-        },
-        {
-          "name": "Get All Materials",
-          "request": {
-            "method": "GET",
-            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
-            "url": { "raw": "{{baseUrl}}/materials", "host": [ "{{baseUrl}}" ], "path": [ "materials" ] }
           }
         },
         {
@@ -297,22 +340,6 @@
             "method": "GET",
             "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
             "url": { "raw": "{{baseUrl}}/materials/subject/:materialSubject", "host": [ "{{baseUrl}}" ], "path": [ "materials", "subject", ":materialSubject" ] }
-          }
-        },
-        {
-          "name": "Get Materials by Org and Class",
-          "request": {
-            "method": "GET",
-            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
-            "url": { "raw": "{{baseUrl}}/materials/org/:orgID/class/:forClass", "host": [ "{{baseUrl}}" ], "path": [ "materials", "org", ":orgID", "class", ":forClass" ] }
-          }
-        },
-        {
-          "name": "Get Materials by Org and Subject",
-          "request": {
-            "method": "GET",
-            "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
-            "url": { "raw": "{{baseUrl}}/materials/org/:orgID/subject/:materialSubject", "host": [ "{{baseUrl}}" ], "path": [ "materials", "org", ":orgID", "subject", ":materialSubject" ] }
           }
         }
       ]
@@ -379,6 +406,87 @@
             "method": "DELETE",
             "header": [ { "key": "Authorization", "value": "Bearer {{jwtToken}}" } ],
             "url": { "raw": "{{baseUrl}}/notices/:id", "host": [ "{{baseUrl}}" ], "path": [ "notices", ":id" ] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Attendance",
+      "item": [
+        {
+          "name": "Create Attendance",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orgID\": \"<orgID>\",\n  \"userID\": \"<userID>\",\n  \"attendanceStatus\": \"present\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/attendance", "host": [ "{{baseUrl}}" ], "path": [ "attendance" ] }
+          }
+        },
+        {
+          "name": "Update Attendance",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"attendanceStatus\": \"absent\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/attendance/:id", "host": [ "{{baseUrl}}" ], "path": [ "attendance", ":id" ] }
+          }
+        },
+        {
+          "name": "Delete Attendance",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/attendance/:id", "host": [ "{{baseUrl}}" ], "path": [ "attendance", ":id" ] }
+          }
+        },
+        {
+          "name": "Get Attendance by User",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/attendance/user/:userID", "host": [ "{{baseUrl}}" ], "path": [ "attendance", "user", ":userID" ] }
+          }
+        },
+        {
+          "name": "Get Attendance by Organization",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/attendance/org/:orgID", "host": [ "{{baseUrl}}" ], "path": [ "attendance", "org", ":orgID" ] }
+          }
+        },
+        {
+          "name": "Get Attendance by Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/attendance/status/:status", "host": [ "{{baseUrl}}" ], "path": [ "attendance", "status", ":status" ] }
+          }
+        },
+        {
+          "name": "Get Attendance by Date Range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { 
+              "raw": "{{baseUrl}}/attendance/date-range?from=2024-01-01&to=2024-01-31", 
+              "host": [ "{{baseUrl}}" ], 
+              "path": [ "attendance", "date-range" ],
+              "query": [
+                { "key": "from", "value": "2024-01-01", "description": "Start date (YYYY-MM-DD)" },
+                { "key": "to", "value": "2024-01-31", "description": "End date (YYYY-MM-DD)" }
+              ]
+            }
           }
         }
       ]
