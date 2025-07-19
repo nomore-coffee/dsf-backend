@@ -36,7 +36,8 @@ export class NoticeService {
     async findAll(): Promise<Notice[]> {
         return this.noticeModel
             .find()
-            .populate('orgID userID') // optional: populate referenced fields
+            .populate('orgID', 'orgName orgEmail') // only these fields from Org
+            .populate('userID', 'userName userEmail role') // only these fields from User
             .sort({ createdAt: -1 }); // latest first
     }
 
