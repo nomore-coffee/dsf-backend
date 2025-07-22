@@ -33,7 +33,7 @@ export class MaterialController {
   constructor(private readonly materialService: MaterialService) {}
 
   @Post()
-  @Roles(UserRole.ADMIN, UserRole.TEACHER)
+  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.TEACHER)
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Create material (metadata only)' })
   @ApiBody({ type: CreateMaterialDto })
@@ -46,7 +46,7 @@ export class MaterialController {
   }
 
   @Post('upload')
-  @Roles(UserRole.ADMIN, UserRole.TEACHER)
+  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.TEACHER)
   @UseInterceptors(FileInterceptor('file', {
     storage: undefined, // Use memory storage
     limits: {
@@ -164,7 +164,7 @@ export class MaterialController {
   }
 
   @Put(':id')
-  @Roles(UserRole.ADMIN, UserRole.TEACHER)
+  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.TEACHER)
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Update material' })
   @ApiParam({ name: 'id', description: 'Material ID', example: '507f1f77bcf86cd799439011' })
@@ -176,7 +176,7 @@ export class MaterialController {
   }
 
   @Delete(':id')
-  @Roles(UserRole.ADMIN, UserRole.TEACHER)
+  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.TEACHER)
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Delete material' })
   @ApiParam({ name: 'id', description: 'Material ID', example: '507f1f77bcf86cd799439011' })

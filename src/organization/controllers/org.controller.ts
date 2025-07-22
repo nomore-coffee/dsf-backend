@@ -50,7 +50,7 @@ export class OrgController {
 
   @Get(':id')
   @UseGuards(JwtAuthGuard , RolesGuard)
-  @Roles(UserRole.ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN)
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Get organization by ID' })
   @ApiParam({ name: 'id', description: 'Organization ID', example: '507f1f77bcf86cd799439011' })
@@ -62,7 +62,7 @@ export class OrgController {
 
   @Get()
   @UseGuards(JwtAuthGuard , RolesGuard)
-  @Roles(UserRole.ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN)
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Get all organizations (ADMIN only)' })
   @ApiResponse({ status: 200, description: 'Organizations retrieved successfully' })
@@ -74,7 +74,7 @@ export class OrgController {
 
   @Put(':id')
   @UseGuards(JwtAuthGuard , RolesGuard)
-  @Roles(UserRole.ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN)
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Update organization' })
   @ApiParam({ name: 'id', description: 'Organization ID', example: '507f1f77bcf86cd799439011' })
@@ -87,7 +87,7 @@ export class OrgController {
 
   @Patch(':id/activate')
   @UseGuards(JwtAuthGuard , RolesGuard)
-  @Roles(UserRole.ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN)
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Activate organization' })
   @ApiParam({ name: 'id', description: 'Organization ID', example: '507f1f77bcf86cd799439011' })
@@ -99,7 +99,7 @@ export class OrgController {
 
   @Patch(':id/deactivate')
   @UseGuards(JwtAuthGuard , RolesGuard)
-  @Roles(UserRole.ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN)
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Deactivate organization' })
   @ApiParam({ name: 'id', description: 'Organization ID', example: '507f1f77bcf86cd799439011' })

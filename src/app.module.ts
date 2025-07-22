@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { MaterialModule } from './material/material.module';
 import { NoticeModule } from './notice/notice.module';
 import { AttendanceModule } from './attendance/attendance.module';
+import { TimetableModule } from './timetable/timetable.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { AttendanceModule } from './attendance/attendance.module';
     MaterialModule,
     NoticeModule,
     AttendanceModule,
+    TimetableModule,
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.DB_URL || 'mongodb+srv://dsf_main:digital%402025@cluster0.1texgvj.mongodb.net/digitalShala')
   ],

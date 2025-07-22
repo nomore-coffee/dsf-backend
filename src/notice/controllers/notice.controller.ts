@@ -16,7 +16,7 @@ export class NoticeController {
     constructor(private readonly noticeService: NoticeService) { }
 
     @Get()
-    @Roles(UserRole.ADMIN, UserRole.PARENT, UserRole.STUDENT, UserRole.TEACHER)
+    @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.PARENT, UserRole.STUDENT, UserRole.TEACHER)
     @ApiBearerAuth('JWT-auth')
     @ApiOperation({ summary: 'Get all notices' })
     @ApiResponse({ status: 200, description: 'Notices retrieved successfully' })
@@ -28,7 +28,7 @@ export class NoticeController {
 
     // GET /notices/:id – fetch one
     @Get('/filter')
-    @Roles(UserRole.ADMIN, UserRole.PARENT, UserRole.STUDENT, UserRole.TEACHER)
+    @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.PARENT, UserRole.STUDENT, UserRole.TEACHER )
     @ApiBearerAuth('JWT-auth')
     @ApiOperation({ summary: 'Filter notices by various criteria' })
     @ApiQuery({ name: 'id', required: false, description: 'Notice ID', example: '507f1f77bcf86cd799439011' })
@@ -48,7 +48,7 @@ export class NoticeController {
     }
 
     @Post()
-    @Roles(UserRole.ADMIN, UserRole.TEACHER)
+    @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.TEACHER)
     @ApiBearerAuth('JWT-auth')
     @ApiOperation({ summary: 'Create new notice' })
     @ApiBody({ type: CreateNoticeDto })
@@ -61,7 +61,7 @@ export class NoticeController {
     }
 
     @Put(':id')
-    @Roles(UserRole.ADMIN, UserRole.TEACHER)
+    @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.TEACHER)
     @ApiBearerAuth('JWT-auth')
     @ApiOperation({ summary: 'Update notice' })
     @ApiParam({ name: 'id', description: 'Notice ID', example: '507f1f77bcf86cd799439011' })
@@ -73,7 +73,7 @@ export class NoticeController {
     }
 
     @Delete(':id')
-    @Roles(UserRole.ADMIN, UserRole.TEACHER)
+    @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.TEACHER)
     @ApiBearerAuth('JWT-auth')
     @ApiOperation({ summary: 'Delete notice' })
     @ApiParam({ name: 'id', description: 'Notice ID', example: '507f1f77bcf86cd799439011' })
