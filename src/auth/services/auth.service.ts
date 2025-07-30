@@ -38,6 +38,7 @@ export class AuthService {
       email: user.userEmail ?? user.orgEmail,
       role: user.role ?? 'admin',
       orgID: user.orgID ?? user._id,
+      userID: user._id,
     };
     return {
       accessToken: this.jwtService.sign(payload),
