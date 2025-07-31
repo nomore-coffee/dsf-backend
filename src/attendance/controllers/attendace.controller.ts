@@ -70,7 +70,8 @@ export class AttendanceController {
   getByDateRange(
     @Query('from') from: string,
     @Query('to') to: string,
+    @Query('userID') userID: string
   ) {
-    return this.service.getByDateRange(new Date(from), new Date(to));
+    return this.service.getByDateRange(new Date(from), new Date(to) , userID); ;
   }
 }
