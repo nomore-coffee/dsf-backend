@@ -16,11 +16,22 @@ export class AttendanceService {
   ) { }
 
   async create(dto: CreateAttendanceDto): Promise<Attendance> {
-    return this.attendanceModel.create({
-      ...dto,
-      orgID: new (require('mongoose').Types.ObjectId)(dto.orgID),
-      userID: new (require('mongoose').Types.ObjectId)(dto.userID),
-    });
+    try{
+      const insertAttendance =  this.attendanceModel.create({
+        ...dto,
+        date  :new Date().toISOString().split('T')[0],
+        orgID: new (require('mongoose').Types.ObjectId)(dto.orgID),
+        userID: new (require('mongoose').Types.ObjectId)(dto.userID),
+      }).catch((error) => {
+        if (error.code === 11000) {
+          throw new NotFoundException('Attendance record already exists for this user on this date');
+        }
+        throw error;
+      });
+      return insertAttendance;
+    }catch{
+      throw new NotFoundException('Attendance record already exists for this user on this date');
+    }
   }
 
   async update(id: string, dto: UpdateAttendanceDto): Promise<Attendance> {
