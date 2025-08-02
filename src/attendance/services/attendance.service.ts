@@ -6,12 +6,13 @@ import { CreateAttendanceDto, UpdateAttendanceDto } from '../dtos/attendace.dto'
 import { AttendanceStatus } from '../schemas/attendance.schema';
 import { ObjectId } from 'mongodb';
 import monthDays from 'month-days';
+import { User } from 'src/users/schemas/user.schema';
 
 @Injectable()
 export class AttendanceService {
   constructor(
-    @InjectModel(Attendance.name)
-    private readonly attendanceModel: Model<Attendance>,
+    @InjectModel(Attendance.name) private readonly attendanceModel: Model<Attendance>,
+    @InjectModel(User.name) private readonly userModel: Model<User> // Assuming you have a User model for student list
   ) { }
 
   async create(dto: CreateAttendanceDto): Promise<Attendance> {
@@ -118,5 +119,9 @@ export class AttendanceService {
       record.totalDays = new Date(record._id.year , record._id.month, 0).getDate();
     })
     return records
+  }
+
+  async getStudentList(orgID:string, userClass:number): Promise<any[]> {
+    return this.userModel.find({userClass:userClass , orgID:orgID , role:"student"}).select('userName orgID _id')
   }
 }

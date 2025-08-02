@@ -74,4 +74,15 @@ export class AttendanceController {
   ) {
     return this.service.getByDateRange(new Date(from), new Date(to) , userID); ;
   }
+
+
+  @Get('studentList')
+  @ApiOperation({ summary: 'Get attendance records for student list' })
+  @ApiResponse({ status: 200, description: 'Attendance records for student list retrieved successfully' })
+  getStudentList(
+  @Query('orgID') orgID: string = '507f1f77bcf86cd799439011', // Default orgID for testing
+  @Query('userClass') userClass: number = 10 // Default class for testing
+  ) {
+    return this.service.getStudentList(orgID, userClass);
+  }
 }
