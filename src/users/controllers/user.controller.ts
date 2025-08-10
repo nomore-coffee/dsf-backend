@@ -73,11 +73,11 @@ export class UserController {
     return this.userService.getAllUsersSortedByOrg(sortByOrg);
   }
 
-  @Get('test/all')
+  @Get('get/:orgId')
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Get all users test endpoint' })
   @ApiResponse({ status: 200, description: 'Users retrieved successfully' })
-  async getAllUsersTest() {
-    return this.userService.getAllUsersSortedByOrg('asc');
+  async getAllUsersTest(@Param('orgId') orgId: string) {
+    return this.userService.getAllUsersSortedByOrg(orgId);
   }
 }

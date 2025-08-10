@@ -96,8 +96,7 @@ async deactivateUser(userId: string): Promise<User> {
   }
 }
 
-async getAllUsersSortedByOrg(sortByOrg: string = 'asc'): Promise<User[]> {
-  const sortOrder = sortByOrg === 'desc' ? -1 : 1;
-  return this.userModel.find().sort({ orgID: sortOrder }).exec();
+async getAllUsersSortedByOrg(orgID: string): Promise<User[]> {
+  return this.userModel.find({orgID:orgID}).exec();
 }
 }
