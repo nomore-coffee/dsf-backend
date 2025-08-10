@@ -97,6 +97,6 @@ async deactivateUser(userId: string): Promise<User> {
 }
 
 async getAllUsersSortedByOrg(orgID: string): Promise<User[]> {
-  return this.userModel.find({orgID:orgID}).exec();
+  return this.userModel.find({orgID:orgID}).select("-userPassword").exec();
 }
 }
