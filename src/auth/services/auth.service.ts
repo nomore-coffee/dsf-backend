@@ -16,18 +16,18 @@ export class AuthService {
 
   async validateUser(email: string, pass: string , role: string): Promise<User | Org>{
     let user ;
-    if(role !== 'admin'){
-      user = await this.userModel.findOne({ userEmail: email });
+    // if(role !== 'admin'){
+      user = await this.userModel.findOne({ userEmail: email  , role: role });
       if (!user) throw new UnauthorizedException('Invalid credentials');
       const isMatch = await bcrypt.compare(pass, user.userPassword);
       if (!isMatch) throw new UnauthorizedException('Invalid credentials');
-    }else{
-      user = await this.userModel.findOne({ userEmail: email });
-      if (!user) throw new UnauthorizedException('Invalid credentials');
-      console.log("..",user,pass)
-      const isMatch = await bcrypt.compare(pass, user.userPassword);
-      if (!isMatch) throw new UnauthorizedException('Invalid credentials');
-    }
+  //   }else{
+  //     user = await this.userModel.findOne({ userEmail: email });
+  //     if (!user) throw new UnauthorizedException('Invalid credentials');
+  //     console.log("..",user,pass)
+  //     const isMatch = await bcrypt.compare(pass, user.userPassword);
+  //     if (!isMatch) throw new UnauthorizedException('Invalid credentials');
+  //   }
     return user;
   }
   
@@ -38,7 +38,9 @@ export class AuthService {
       email: user.userEmail ?? user.orgEmail,
       role: user.role ?? 'admin',
       orgID: user.orgID ?? user._id,
-      userID: user._id,
+      // userID: user._id,
+      userName: user.userName ?? user.orgName,
+      userClass: user.userClass ?? null,
     };
     return {
       accessToken: this.jwtService.sign(payload),
