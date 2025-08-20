@@ -17,7 +17,7 @@ export class AuthService {
   async validateUser(email: string, pass: string , role: string): Promise<User | Org>{
     let user ;
     // if(role !== 'admin'){
-      user = await this.userModel.findOne({ userEmail: email  , role: role });
+      user = await this.userModel.findOne({ userEmail: email });
       if (!user) throw new UnauthorizedException('Invalid credentials');
       const isMatch = await bcrypt.compare(pass, user.userPassword);
       if (!isMatch) throw new UnauthorizedException('Invalid credentials');
