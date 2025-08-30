@@ -8,5 +8,6 @@ import { TimetableController } from './controllers/timetable.controller';
   imports: [MongooseModule.forFeature([{ name: Timetable.name, schema: TimetableSchema }])],
   controllers: [TimetableController],
   providers: [TimetableService],
+  exports: [TimetableService],
 })
 export class TimetableModule {} 

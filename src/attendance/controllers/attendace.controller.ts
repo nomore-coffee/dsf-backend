@@ -72,7 +72,10 @@ export class AttendanceController {
     @Query('to') to: string,
     @Query('userID') userID: string
   ) {
-    return this.service.getByDateRange(new Date(from), new Date(to) , userID); ;
+    const now = new Date();
+    const fromDate = from ? new Date(from) : new Date(now.getFullYear(), 0, 1);
+    const toDate = to ? new Date(to) : new Date(now.getFullYear(), 11, 31, 23, 59, 59, 999);
+    return this.service.getByDateRange(new Date(fromDate), new Date(toDate) , userID); 
   }
 
 

@@ -10,6 +10,7 @@ import { MaterialModule } from './material/material.module';
 import { NoticeModule } from './notice/notice.module';
 import { AttendanceModule } from './attendance/attendance.module';
 import { TimetableModule } from './timetable/timetable.module';
+import { DeleteModule } from './delete/delete.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { TimetableModule } from './timetable/timetable.module';
     NoticeModule,
     AttendanceModule,
     TimetableModule,
+    DeleteModule,
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.DB_URL || 'mongodb+srv://dsf_main:digital%402025@cluster0.1texgvj.mongodb.net/digitalShala')
   ],
