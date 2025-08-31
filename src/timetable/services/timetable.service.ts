@@ -34,6 +34,6 @@ export class TimetableService {
   async delete(id: string): Promise<{ deleted: boolean }> {
     const res = await this.timetableModel.findByIdAndDelete(id);
     if (!res) throw new NotFoundException('Timetable not found');
-    return { deleted: true };
+    return { message: "Timetable Deleted Successfully"} as any;
   }
 } 

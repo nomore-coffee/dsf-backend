@@ -62,7 +62,7 @@ export class MaterialService {
     return updated;
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: string): Promise<any> {
     const material = await this.materialModel.findById(id).exec();
     if (!material) throw new NotFoundException('Material not found');
 
@@ -78,7 +78,9 @@ export class MaterialService {
     }
 
     // Delete material record
-    await this.materialModel.findByIdAndDelete(id).exec();
+    const deleteMaterial =  this.materialModel.findByIdAndDelete(id).exec();
+    if (!deleteMaterial) throw new NotFoundException('Material not found');
+    return { message: "Material Deleted Successfully"} as any;
   }
 
   async findByUser(userID: string): Promise<Material[]> {

@@ -84,7 +84,7 @@ async deactivateUser(userId: string): Promise<User> {
       throw new NotFoundException('User not found');
     }
 
-    return user;
+    return {message: "User Deleted Successfully"} as any;
   } catch (error) {
     console.error('Deactivate User Error:', error);
 
