@@ -47,7 +47,7 @@ export class MaterialService {
   }
 
   async findAll(): Promise<Material[]> {
-    return this.materialModel.find().exec();
+    return this.materialModel.find().sort({ createdAt: -1 }).exec();
   }
 
   async findById(id: string): Promise<Material> {
